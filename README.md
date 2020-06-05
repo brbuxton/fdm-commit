@@ -13,3 +13,4 @@ Teams message with any errors.
 * PASS - FDM admin password
 * EMAIL - email address of Webex Teams user to notify with errors
 * WEBEX_TEAMS_ACCESS_TOKEN - Bearer token for Webex Teams
+* FDMADDRESS - IP address or FQDN of FDM management

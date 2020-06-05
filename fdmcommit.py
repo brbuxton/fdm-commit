@@ -34,7 +34,7 @@ class FDM:
         log.debug(f'Initializing {FDM}')
         self.user = os.getenv('USER')
         self.pwd = os.getenv('PASS')
-        self.api = 'https://192.168.128.1/api/fdm/latest'  # TODO: make host a variable
+        self.api = f"https://{os.getenv('FDMADDRESS')}/api/fdm/latest"
         self.headers = {'Content-Type': 'application/json'}
         if self.token is None:
             self.get_token()  # TODO: check for token expiration
