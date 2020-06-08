@@ -22,3 +22,5 @@ days, so I am working on refining error handling to account for common variation
 * EMAIL - email address of Webex Teams user to notify with errors
 * WEBEX_TEAMS_ACCESS_TOKEN - Bearer token for Webex Teams
 * FDMADDRESS - IP address or FQDN of FDM management
+
+[![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/brbuxton/fdm-commit)
