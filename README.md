@@ -5,7 +5,7 @@ does not automatically deploy them.  This is a script to automatically commit in
 updates to your FDM.  It checks to make certain that there are no other pending changes to the configuration.  If there 
 are additional changes or any errors, the script sends notification with a Webex Teams message.
 
-The script was tested with FTD 6.6, but should also work with some previous versions.  If you are able to test on 
+The script was tested with FTD 6.5 and newer, but should also work with some previous versions.  If you are able to test on 
 previous versions, I will gladly credit you as a contributor.
 
 I set this script to run once daily after the FDM update task has completed via a cron job on a Pi.  It is still early
@@ -61,5 +61,16 @@ use that token to pull down any pending changes and evaluate them.  If the chang
 or geolocation updates the script deploy/commits the pending changes.  If there are any other pending changes (i.e. 
 ACP/ACL rule updates), the script will use the WEBEX_TEAMS_ACCESS_TOKEN to send a 1-to-1 message to EMAIL informing you
 of the issues with the deployment.
+
+## DevNet Sandbox Testing
+
+This script works with the FTD REST API sandbox available at https://developer.cisco.com/RM/Topology.  You will need to
+provision an instance of the sandbox and establish a VPN connection from your development environment with AnyConnect.
+Tested in June 2020, the environment variables needed to be set to the following:
+* USER=admin
+* PASS=Cisco1234
+* EMAIL=(same as what you use in Teams)
+* WEBEX_TEAMS_ACCESS_TOKEN=(can use what you copy from https://developer.webex.com/docs/api/getting-started)
+* FDMADDRESS=10.10.20.65
 
 [![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/brbuxton/fdm-commit)
