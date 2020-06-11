@@ -25,7 +25,6 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 class FDM:
     token = None
-    teams = WebexTeamsAPI()  # TODO: add exception handling
 
     def __repr__(self):
         return f'{self.__class__.__name__}'
@@ -75,28 +74,18 @@ class FDM:
             log.debug('non-SRU items in pendingchanges. Exiting.')
             log.debug({item['entityType'] == 'sruversion' for item in response['items']})
             log.debug((response['items']))
-            self.teams.messages.create(toPersonEmail=os.getenv('EMAIL'),
-                                      text='non-SRU items in pendingchanges. Exiting.')
             raise Exception('non-SRU items in pendingchanges')
         elif True in {item['entityType'] in ('sruversion', 'intrusionpolicy') for item in response['items']}:
             try:
                 response = requests.post(self.api + '/operational/deploy', headers=self.headers, data=None,
                                          verify=False)
-                self.teams.messages.create(toPersonEmail=os.getenv('EMAIL'),
-                                          text='successful deployment')
                 return
             except:
-                self.teams.messages.create(toPersonEmail=os.getenv('EMAIL'),
-                                          text='failed to deploy')
                 raise Exception(f"{self} - failed to deploy - {response}")
         elif len({item['entityType'] == 'sruversion' for item in response['items']}) == 0:
             log.debug('no changes to deploy')
-            self.teams.messages.create(toPersonEmail=os.getenv('EMAIL'),
-                                      text='no changes to deploy')
             return
         else:
-            self.teams.messages.create(toPersonEmail=os.getenv('EMAIL'),
-                                      text='non-True/False/zero in pendingchanges')
             raise Exception(f'non-True/False/zero in pendingchanges - {response}')
 
 
