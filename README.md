@@ -64,7 +64,7 @@ of the issues with the deployment.
 
 ## DevNet Sandbox Testing
 
-This script works with the FTD REST API sandbox available at https://developer.cisco.com/RM/Topology.  You will need to
+This script works with the __FTD REST API__ sandbox available at https://developer.cisco.com.  You will need to
 provision an instance of the sandbox and establish a VPN connection from your development environment with AnyConnect.
 Tested in June 2020, the environment variables needed to be set to the following:
 * USER=admin

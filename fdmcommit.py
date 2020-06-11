@@ -38,6 +38,7 @@ class FDM:
         self.headers = {'Content-Type': 'application/json'}
         if self.token is None:
             self.get_token()  # TODO: check for token expiration
+            log.debug(f'{FDM} - Set token to {self.token}')
 
     def get_token(self):
         """
@@ -55,21 +56,29 @@ class FDM:
     "password": "{self.pwd}"
 }}'''
         response = requests.post(self.api + '/fdm/token', headers=self.headers, data=payload, verify=False).json()
+        log.debug(f'get_token - response code')
         FDM.token = response['access_token']  # This token is stored in the class for use by all instances
         self.headers['Authorization'] = f'Bearer {self.token}'
         return response['access_token']
 
     def inspect_pending_changes(self):
+        '''
+        Pull a list of pending changes off the FTD and evaluate for intrusion rule, VDB and geolocation updates.
+        This method needs to be decomposed into a single task.  Right now it also deploys the changes if only intrusion
+        updates are present.
+
+        :return:
+        '''
         response = requests.get(self.api + '/operational/pendingchanges', headers=self.headers, data=None,
                                 verify=False).json()
-        if False in {item['entityType'] == 'sruversion' for item in response['items']}:
+        if False in {item['entityType'] in ('sruversion', 'intrusionpolicy') for item in response['items']}:
             log.debug('non-SRU items in pendingchanges. Exiting.')
             log.debug({item['entityType'] == 'sruversion' for item in response['items']})
             log.debug((response['items']))
             self.teams.messages.create(toPersonEmail=os.getenv('EMAIL'),
                                       text='non-SRU items in pendingchanges. Exiting.')
             raise Exception('non-SRU items in pendingchanges')
-        elif True in {item['entityType'] == 'sruversion' for item in response['items']}:
+        elif True in {item['entityType'] in ('sruversion', 'intrusionpolicy') for item in response['items']}:
             try:
                 response = requests.post(self.api + '/operational/deploy', headers=self.headers, data=None,
                                          verify=False)
