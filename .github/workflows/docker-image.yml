@@ -20,8 +20,8 @@ jobs:
       -e WEBEX_TEAMS_ACCESS_TOKEN=$WEBEX_TEAMS_ACCESS_TOKEN \
       -e FDMADDRESS=$FDMADDRESS
       env:
-        USER:{{ secrets.USER }}
-        PASS:'{{ secrets.PASS }}'
-        EMAIL:{{ secrets.EMAIL }}
-        WEBEX_TEAMS_ACCESS_TOKEN:{{ secrets.WEBEX_TEAMS_ACCESS_TOKEN }}
-        FDMADDRESS:{{ secrets.FDMADDRESS }}
+        USER:${{ secrets.USER }}
+        PASS:${{ secrets.PASS }}
+        EMAIL:${{ secrets.EMAIL }}
+        WEBEX_TEAMS_ACCESS_TOKEN:${{ secrets.WEBEX_TEAMS_ACCESS_TOKEN }}
+        FDMADDRESS:${{ secrets.FDMADDRESS }}
