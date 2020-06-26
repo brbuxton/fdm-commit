@@ -1,12 +1,3 @@
 /venv/
 /commit.log
-/.idea/inspectionProfiles/profiles_settings.xml
-/.idea/.gitignore
-/.idea/fdmcommit.iml
-/.idea/misc.xml
-/.idea/modules.xml
-/.idea/vcs.xml
-/.idea/fdm-commit.iml
-/.idea/workspace.xml
-/.idea/shelf/Uncommitted_changes_before_Checkout_at_6_24_2020_2_15_PM_[Default_Changelist]/shelved.patch
-/.idea/shelf/Uncommitted_changes_before_Checkout_at_6_24_2020_2_15_PM__Default_Changelist_.xml
+/.idea/
