@@ -15,7 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: >
-        docker build . --file Dockerfile.arm --tag fdmcommit:$(date +%s)
-        -e USER=${{ secrets.USER }} -e PASS='${{ secrets.PASS }}' -e EMAIL=${{ secrets.EMAIL }}
-        -e WEBEX_TEAMS_ACCESS_TOKEN=${{ secrets.WEBEX_TEAMS_ACCESS_TOKEN }} -e FDMADDRESS=${{ secrets.FDMADDRESS }}
+      run: docker build . --file Dockerfile.arm --tag fdmcommit:$(date +%s)
