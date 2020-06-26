@@ -1,0 +1,15 @@
+FROM arm32v7/python:3.6.10-buster
+
+WORKDIR /app
+
+ENV USER={{ secrets.USER }}
+ENV PASS='{{ secrets.PASS }}'
+ENV EMAIL={{ secrets.EMAIL }}
+ENV WEBEX_TEAMS_ACCESS_TOKEN={{ secrets.WEBEX_TEAMS_ACCESS_TOKEN }}
+ENV FDMADDRESS={{ secrets.FDMADDRESS }}
+
+
+RUN apt-get update && apt install -y git
+RUN git clone https://github.com/brbuxton/fdm-commit
+RUN pip install -r /app/fdm-commit/requirements.txt
+ENTRYPOINT python /app/fdm-commit/fdmcommit.py

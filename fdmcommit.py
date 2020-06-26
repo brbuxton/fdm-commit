@@ -3,6 +3,7 @@ import os
 import logging.handlers
 import urllib3
 from webexteamssdk import WebexTeamsAPI
+import time
 
 # setup log class
 log = logging.getLogger(__name__)
@@ -28,7 +29,7 @@ class FDM:
     teams = WebexTeamsAPI()  # TODO: add exception handling
 
     def __repr__(self):
-        return f'{self.__class__.__name__}'
+        return "{}({!r})".format(self.__class__.__name__, self.user, self.pwd, self.api, self.headers, self.token)
 
     def __init__(self):
         log.debug(f'Initializing {FDM}')
@@ -102,4 +103,6 @@ class FDM:
 
 if __name__ == '__main__':
     fdm = FDM()
-    print(fdm.inspect_pending_changes())
+    while True:
+        print(fdm.inspect_pending_changes())
+        time.sleep(14400)
