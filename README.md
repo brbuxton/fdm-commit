@@ -73,4 +73,17 @@ Tested in June 2020, the environment variables needed to be set to the following
 * WEBEX_TEAMS_ACCESS_TOKEN=(can use what you copy from https://developer.webex.com/docs/api/getting-started)
 * FDMADDRESS=10.10.20.65
 
+## Docker Support
+
+There are two different Dockerfiles.  The Dockerfile uses the official python image while the Dockerfile.arm
+uses a version suitable for a Raspberry Pi 3.  I have not tested with an RPi 4.  Please let me know of any other
+versions this works for.  Images are maintained at https://hub.docker.com/repository/docker/brbuxton/fdmcommit 
+To launch the container once the image is installed try:
+
+``` Linux
+docker run --name fdmcommit-rpi -e USER=<insert your FDM admin username> -e PASS=<insert your admin password> /
+-e EMAIL=<insert the email to notify via Teams> -e WEBEX_TEAMS_ACCESS_TOKEN=<insert your token> /
+-e FDMADDRESS=<insert your FDM IP> brbuxton/fdmcommit:arm32v7
+```
+
 [![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/brbuxton/fdm-commit)
