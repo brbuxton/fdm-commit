@@ -70,8 +70,14 @@ class FDM:
 
         :return:
         '''
-        response = requests.get(self.api + '/operational/pendingchanges', headers=self.headers, data=None,
-                                verify=False).json()
+        try:
+            response = requests.get(self.api + '/operational/pendingchanges', headers=self.headers, data=None,
+                                    verify=False).json()
+        except:
+            self.get_token()
+            log.debug(f'{FDM} - Set token to {self.token}')
+            response = requests.get(self.api + '/operational/pendingchanges', headers=self.headers, data=None,
+                                    verify=False).json()
         if False in {item['entityType'] in ('sruversion', 'intrusionpolicy') for item in response['items']}:
             log.debug('non-SRU items in pendingchanges. Exiting.')
             log.debug({item['entityType'] == 'sruversion' for item in response['items']})
