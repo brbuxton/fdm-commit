@@ -39,7 +39,7 @@ class FDM:
         self.headers = {'Content-Type': 'application/json'}
         if self.token is None:
             self.get_token()  # TODO: check for token expiration
-            log.debug(f'{FDM} - Set token to {self.token}')
+            log.debug(f'{self.__class__.__name_} - Set token to {self.token}')
 
     def get_token(self):
         """
@@ -70,14 +70,11 @@ class FDM:
 
         :return:
         '''
-        try:
-            response = requests.get(self.api + '/operational/pendingchanges', headers=self.headers, data=None,
-                                    verify=False).json()
-        except:
-            self.get_token()
-            log.debug(f'{FDM} - Set token to {self.token}')
-            response = requests.get(self.api + '/operational/pendingchanges', headers=self.headers, data=None,
-                                    verify=False).json()
+        response = requests.get(self.api + '/operational/pendingchanges', headers=self.headers, data=None,
+                                verify=False).json()
+        if response.status_code != 200:
+            self.get_token()  # TODO: check for token expiration
+            log.debug(f'{self.__class__.__name_} - Refresh token to {self.token}')
         if False in {item['entityType'] in ('sruversion', 'intrusionpolicy') for item in response['items']}:
             log.debug('non-SRU items in pendingchanges. Exiting.')
             log.debug({item['entityType'] == 'sruversion' for item in response['items']})
