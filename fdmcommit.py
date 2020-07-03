@@ -75,7 +75,8 @@ class FDM:
         if response.status_code != 200:
             self.get_token()  # TODO: check for token expiration
             log.debug(f'{self.__class__.__name__} - Refresh token to {self.token}')
-            response = response.json()
+            response = requests.get(self.api + '/operational/pendingchanges', headers=self.headers, data=None,
+                                    verify=False).json()
         else:
             response = response.json()
         if False in {item['entityType'] in ('sruversion', 'intrusionpolicy') for item in response['items']}:
